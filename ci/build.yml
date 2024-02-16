@@ -1,0 +1,21 @@
+---
+
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: golang
+    tag: 1.22.0-bullseye
+
+inputs:
+  - name: dp-data-api
+
+outputs:
+  - name: build
+
+caches:
+  - path: go/
+
+run:
+  path: dp-data-api/ci/scripts/build.sh
