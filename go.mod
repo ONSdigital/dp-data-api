@@ -1,6 +1,6 @@
 module github.com/ONSdigital/dp-data-api
 
-go 1.21.7
+go 1.22
 
 require (
 	github.com/ONSdigital/dp-component-test v0.10.0
@@ -9,12 +9,11 @@ require (
 	github.com/ONSdigital/dp-otel-go v0.0.7
 	github.com/ONSdigital/log.go/v2 v2.4.3
 	github.com/cucumber/godog v0.14.0
-	github.com/gorilla/mux v1.8.1
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/pkg/errors v0.9.1
 	github.com/smartystreets/goconvey v1.8.1
 	github.com/stretchr/testify v1.8.4
-	go.opentelemetry.io/contrib/instrumentation/github.com/gorilla/mux/otelmux v0.48.0
+	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.48.0
 )
 
 require (

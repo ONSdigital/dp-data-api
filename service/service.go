@@ -2,21 +2,20 @@ package service
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/ONSdigital/dp-data-api/api"
 	"github.com/ONSdigital/dp-data-api/config"
 	"github.com/ONSdigital/log.go/v2/log"
-	"github.com/gorilla/mux"
 	"github.com/pkg/errors"
-	"go.opentelemetry.io/contrib/instrumentation/github.com/gorilla/mux/otelmux"
-	// "go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 )
 
 // Service contains all the configs, server and clients to run the API
 type Service struct {
 	Config      *config.Config
 	Server      HTTPServer
-	Router      *mux.Router
+	Mux         *http.ServeMux
 	API         *api.API
 	ServiceList *ExternalServiceList
 	HealthCheck HealthChecker
@@ -29,20 +28,19 @@ func Run(ctx context.Context, cfg *config.Config, serviceList *ExternalServiceLi
 	log.Info(ctx, "using service configuration", log.Data{"config": cfg})
 
 	// Get HTTP Server and ... // TODO: Add any middleware that your service requires
-	r := mux.NewRouter()
+	mux := http.NewServeMux()
+	var handler http.Handler = mux
 
 	if cfg.OtelEnabled {
-		r.Use(otelmux.Middleware(cfg.OTServiceName))
-
-		// TODO: Any middleware will require 'otelhttp.NewMiddleware(cfg.OTServiceName),' included for Open Telemetry
+		handler = otelhttp.NewMiddleware(cfg.OTServiceName)(handler)
 	}
 
-	s := serviceList.GetHTTPServer(cfg.BindAddr, r)
+	s := serviceList.GetHTTPServer(cfg.BindAddr, handler)
 
 	// TODO: Add other(s) to serviceList here
 
-	// Setup the API
-	a := api.Setup(ctx, r)
+	// Set up the API
+	a := api.Setup(ctx, mux)
 
 	hc, err := serviceList.GetHealthCheck(cfg, buildTime, gitCommit, version)
 
@@ -55,7 +53,7 @@ func Run(ctx context.Context, cfg *config.Config, serviceList *ExternalServiceLi
 		return nil, errors.Wrap(err, "unable to register checkers")
 	}
 
-	r.StrictSlash(true).Path("/health").HandlerFunc(hc.Handler)
+	mux.HandleFunc("/health", hc.Handler)
 	hc.Start(ctx)
 
 	// Run the http server in a new go-routine
@@ -67,7 +65,7 @@ func Run(ctx context.Context, cfg *config.Config, serviceList *ExternalServiceLi
 
 	return &Service{
 		Config:      cfg,
-		Router:      r,
+		Mux:         mux,
 		API:         a,
 		HealthCheck: hc,
 		ServiceList: serviceList,

@@ -2,29 +2,30 @@ package api
 
 import (
 	"context"
+	"net/http"
 	"net/http/httptest"
 	"testing"
 
-	"github.com/gorilla/mux"
 	. "github.com/smartystreets/goconvey/convey"
 )
 
 func TestSetup(t *testing.T) {
 	Convey("Given an API instance", t, func() {
-		r := mux.NewRouter()
+		r := http.NewServeMux()
 		ctx := context.Background()
 		api := Setup(ctx, r)
 
 		// TODO: remove hello world example handler route test case
 		Convey("When created the following routes should have been added", func() {
 			// Replace the check below with any newly added api endpoints
-			So(hasRoute(api.Router, "/hello", "GET"), ShouldBeTrue)
+			So(hasRoute(api.Mux, "/hello", "GET"), ShouldBeTrue)
 		})
 	})
 }
 
-func hasRoute(r *mux.Router, path, method string) bool {
+func hasRoute(m *http.ServeMux, path, method string) bool {
 	req := httptest.NewRequest(method, path, nil)
-	match := &mux.RouteMatch{}
-	return r.Match(req, match)
+
+	_, pat := m.Handler(req)
+	return pat != ""
 }
