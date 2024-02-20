@@ -24,7 +24,7 @@ func TestSetup(t *testing.T) {
 }
 
 func hasRoute(m *http.ServeMux, path, method string) bool {
-	req := httptest.NewRequest(method, path, nil)
+	req := httptest.NewRequest(method, path, http.NoBody)
 
 	_, pat := m.Handler(req)
 	return pat != ""
