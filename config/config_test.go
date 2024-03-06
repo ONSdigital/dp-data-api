@@ -31,6 +31,19 @@ func TestConfig(t *testing.T) {
 					OTExporterOTLPEndpoint:     "localhost:4317",
 					OTServiceName:              "dp-data-api",
 					OtelEnabled:                false,
+					CodeListAPIURL:             "http://localhost:22400",
+					DownloadServiceSecretKey:   "QB0108EZ-825D-412C-9B1D-41EF7747F462",
+					WebsiteURL:                 "http://localhost:20000",
+					ZebedeeURL:                 "http://localhost:8082",
+					ServiceAuthToken:           "FD0108EA-825D-411C-9B1D-41EF7727F465",
+					DisableGraphDBDependency:   false,
+					DefaultLimit:               20,
+					DefaultOffset:              0,
+					MaxRequestOptions:          100,
+					EnablePermissionsAuth:      false,
+					KafkaVersion:               "1.0.2",
+					DatasetAPIURL:              "http://localhost:22000",
+					DefaultMaxLimit:            1000,
 				})
 			})
 
