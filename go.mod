@@ -2,6 +2,9 @@ module github.com/ONSdigital/dp-data-api
 
 go 1.22
 
+// [CVE-2024-24786] CWE-835: Loop with Unreachable Exit Condition ('Infinite Loop')
+replace google.golang.org/protobuf => google.golang.org/protobuf v1.33.0
+
 require (
 	github.com/ONSdigital/dp-component-test v0.10.0
 	github.com/ONSdigital/dp-healthcheck v1.6.3
