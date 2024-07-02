@@ -9,7 +9,7 @@ import (
 
 	"github.com/ONSdigital/dp-data-api/config"
 	"github.com/ONSdigital/dp-data-api/service"
-	"github.com/ONSdigital/log.go/v2/log"
+	"github.com/ONSdigital/log.go/v3/log"
 	"github.com/pkg/errors"
 
 	dpotelgo "github.com/ONSdigital/dp-otel-go"
@@ -34,7 +34,7 @@ Version   string = "v0.1.0"
 )
 
 func main() {
-	log.Namespace = serviceName
+	log.Initialise(serviceName)
 	ctx := context.Background()
 
 	if err := run(ctx); err != nil {

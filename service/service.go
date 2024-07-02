@@ -6,7 +6,7 @@ import (
 
 	"github.com/ONSdigital/dp-data-api/api"
 	"github.com/ONSdigital/dp-data-api/config"
-	"github.com/ONSdigital/log.go/v2/log"
+	"github.com/ONSdigital/log.go/v3/log"
 	"github.com/pkg/errors"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 )

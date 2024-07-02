@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/ONSdigital/log.go/v2/log"
+	"github.com/ONSdigital/log.go/v3/log"
 )
 
 // TODO: remove hello world handler

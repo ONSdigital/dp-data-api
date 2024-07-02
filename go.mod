@@ -7,7 +7,7 @@ require (
 	github.com/ONSdigital/dp-healthcheck v1.6.3
 	github.com/ONSdigital/dp-net/v2 v2.11.2
 	github.com/ONSdigital/dp-otel-go v0.0.7
-	github.com/ONSdigital/log.go/v2 v2.4.3
+	github.com/ONSdigital/log.go/v3 v3.0.0-20240730104331-53ae084aea50
 	github.com/cucumber/godog v0.14.0
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/pkg/errors v0.9.1
@@ -19,6 +19,7 @@ require (
 require (
 	github.com/ONSdigital/dp-api-clients-go/v2 v2.254.1 // indirect
 	github.com/ONSdigital/dp-mongodb-in-memory v1.6.0 // indirect
+	github.com/ONSdigital/log.go/v2 v2.4.3 // indirect
 	github.com/cenkalti/backoff/v4 v4.2.1 // indirect
 	github.com/chromedp/cdproto v0.0.0-20230419194459-b5ff65bc57a3 // indirect
 	github.com/chromedp/chromedp v0.9.1 // indirect
