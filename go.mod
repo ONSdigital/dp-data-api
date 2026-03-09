@@ -1,3 +1,4 @@
+// Deprecated: this service is no longer supported and will not receive updates
 module github.com/ONSdigital/dp-data-api
 
 go 1.22
